@@ -26,6 +26,7 @@ if [ ! -d "$ROOT_DIR/venv" ]; then
     echo "  Setting up Python environment..."
     python3 -m venv "$ROOT_DIR/venv"
     "$ROOT_DIR/venv/bin/pip" install -q -r "$ROOT_DIR/requirements.txt"
+    "$ROOT_DIR/venv/bin/ansible-galaxy" collection install community.general ansible.posix -q
     echo "  Python environment ready."
     echo ""
 fi
