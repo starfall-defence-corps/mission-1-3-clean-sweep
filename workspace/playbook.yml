@@ -1,0 +1,111 @@
+---
+# =============================================================
+# OPERATION: CLEAN SWEEP — Fleet Service & Package Hardening
+# =============================================================
+#
+# The fleet is a mess. Unnecessary services running. Firewall
+# inactive. File permissions too loose. Kernel not hardened.
+#
+# Your mission: Clean up every node. Remove what shouldn't be
+# there, enable what should, and lock down the rest.
+#
+# Run your playbook:  ansible-playbook playbook.yml
+# Dry run first:      ansible-playbook playbook.yml --check --diff
+# Verify your work:   make test  (from project root)
+# =============================================================
+
+- name: Clean Sweep — Fleet Hardening
+  hosts: all
+  become: true
+
+  tasks:
+    # ----------------------------------------------------------
+    # Task 1: Remove telnet
+    # ----------------------------------------------------------
+    # The telnet package transmits data in cleartext — including
+    # passwords. It has no place on a secured fleet node.
+    #
+    # Module: ansible.builtin.apt
+    # Key parameters: name, state
+    # Hint: state should ensure the package is gone
+    #
+    # TODO: Write this task
+
+    # ----------------------------------------------------------
+    # Task 2: Remove xinetd
+    # ----------------------------------------------------------
+    # xinetd is a legacy super-server daemon. It listens on
+    # multiple ports and launches services on demand — a wide
+    # attack surface with no benefit on modern systems.
+    #
+    # TODO: Write this task (same pattern as Task 1)
+
+    # ----------------------------------------------------------
+    # Task 3: Ensure ufw is installed
+    # ----------------------------------------------------------
+    # ufw (Uncomplicated Firewall) is already installed on these
+    # nodes, but your playbook should ensure it stays that way.
+    #
+    # Module: ansible.builtin.apt
+    # Key parameters: name, state
+    # Hint: state should ensure the package is present
+    #
+    # TODO: Write this task
+
+    # ----------------------------------------------------------
+    # Task 4: Enable and start ufw
+    # ----------------------------------------------------------
+    # The firewall is installed but not active. Enable it and
+    # ensure it starts. But FIRST — you must allow SSH through
+    # the firewall, or you will lock yourself out.
+    #
+    # This requires TWO tasks:
+    #   a) Allow SSH through ufw (use community.general.ufw module)
+    #      - rule: allow
+    #      - port: '22'
+    #      - proto: tcp
+    #   b) Enable ufw (use community.general.ufw module)
+    #      - state: enabled
+    #
+    # IMPORTANT: The SSH allow rule MUST come before enabling ufw.
+    # If you enable the firewall first, it blocks SSH and you
+    # lose access to the node.
+    #
+    # TODO: Write both tasks (allow SSH, then enable ufw)
+
+    # ----------------------------------------------------------
+    # Task 5: Deploy hardened sysctl configuration
+    # ----------------------------------------------------------
+    # Copy the hardened kernel parameters from
+    # files/sysctl-hardened.conf to /etc/sysctl.d/99-fleet.conf
+    # on every node.
+    #
+    # Module: ansible.builtin.copy
+    # Key parameters: src, dest, owner, group, mode
+    # Hint: owner and group should be root, mode '0644'
+    #
+    # TODO: Write this task
+    #       Add 'notify: Apply sysctl' to trigger the handler
+
+    # ----------------------------------------------------------
+    # Task 6: Fix /etc/shadow permissions
+    # ----------------------------------------------------------
+    # /etc/shadow stores password hashes. It should NOT be
+    # world-readable. Set permissions to 0640 (owner: root,
+    # group: shadow).
+    #
+    # Module: ansible.builtin.file
+    # Key parameters: path, owner, group, mode
+    #
+    # TODO: Write this task
+
+  handlers:
+    # ----------------------------------------------------------
+    # Handler: Apply sysctl
+    # ----------------------------------------------------------
+    # When sysctl.conf changes, the new settings must be loaded.
+    #
+    # Module: ansible.builtin.command
+    # Command: sysctl --system
+    #
+    # TODO: Write this handler

@@ -1,0 +1,77 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV container=docker
+
+# Install systemd + SSH + Ansible prerequisites + deliberately insecure packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    systemd \
+    systemd-sysv \
+    openssh-server \
+    python3 \
+    python3-apt \
+    sudo \
+    iproute2 \
+    procps \
+    ufw \
+    telnet \
+    xinetd \
+    && rm -rf /var/lib/apt/lists/*
+
+# Mask unnecessary systemd units that cause issues in containers
+RUN systemctl mask \
+    dev-hugepages.mount \
+    sys-fs-fuse-connections.mount \
+    systemd-udev-trigger.service \
+    systemd-udevd.service \
+    systemd-update-utmp.service \
+    systemd-logind.service \
+    getty@.service \
+    getty.target
+
+# Enable SSH via systemd
+RUN systemctl enable ssh
+
+# === FLEET NEGLECT — MISCONFIGURATIONS FOR CADETS TO FIX ===
+# The fleet has been neglected. Unnecessary services installed.
+# Firewall present but inactive. File permissions too loose.
+# No kernel hardening. SSH still has Root Fairy's configs from 1.2.
+
+# SSH Root Fairy's legacy (carried over from 1.2)
+RUN mkdir -p /run/sshd \
+    && sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config \
+    && sed -i 's/#PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+
+# Deliberately weaken /etc/shadow permissions (should be 0640, set to 0644)
+RUN chmod 0644 /etc/shadow
+
+# Ensure ufw is installed but NOT enabled (firewall neglect)
+# ufw defaults to inactive on install — no action needed
+
+# Write an insecure sysctl.conf (IP forwarding on, no SYN flood protection)
+RUN printf '# Default — no hardening applied\n\
+net.ipv4.ip_forward = 1\n\
+net.ipv4.conf.all.accept_redirects = 1\n\
+net.ipv4.conf.all.send_redirects = 1\n\
+' > /etc/sysctl.d/99-fleet.conf
+
+# Create cadet user for SSH access
+RUN useradd -m -s /bin/bash cadet \
+    && echo 'cadet:academy' | chpasswd \
+    && echo 'cadet ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/cadet \
+    && chmod 0440 /etc/sudoers.d/cadet
+
+# Set up SSH key auth for cadet
+RUN mkdir -p /home/cadet/.ssh \
+    && chmod 700 /home/cadet/.ssh \
+    && chown cadet:cadet /home/cadet/.ssh
+
+# Set root password (insecure — deliberate misconfiguration for training)
+RUN echo 'root:starfall' | chpasswd
+
+EXPOSE 22
+
+STOPSIGNAL SIGRTMIN+3
+
+CMD ["/sbin/init"]
