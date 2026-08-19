@@ -2,6 +2,8 @@
 
 > 🧭 [← 1.2 Lock the Door](https://github.com/starfall-defence-corps/mission-1-2-lock-the-door) · **You are here: 1.3 Clean Sweep** · [1.4 Many Ships →](https://github.com/starfall-defence-corps/mission-1-4-many-ships) · [🏠 Academy Hub](https://github.com/starfall-defence-corps/sdc-academy)
 
+> ☁️ **No Docker on your machine?** Create your own copy first (Use this template), then on **your** repo: **Code → Codespaces → Create codespace** — everything is preinstalled. First boot takes ~5 min (one-time); after that it starts fast.
+
 ## Mission 1.3: Clean Sweep
 
 > *"Half the fleet runs services nobody asked for. FTP. Telnet. The firewall? Not running. Not enabled. Fix this."*
