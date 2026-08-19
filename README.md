@@ -1,5 +1,7 @@
 # Starfall Defence Corps Academy
 
+> 🧭 [← 1.2 Lock the Door](https://github.com/starfall-defence-corps/mission-1-2-lock-the-door) · **You are here: 1.3 Clean Sweep** · [1.4 Many Ships →](https://github.com/starfall-defence-corps/mission-1-4-many-ships) · [🏠 Academy Hub](https://github.com/starfall-defence-corps/sdc-academy)
+
 ## Mission 1.3: Clean Sweep
 
 > *"Half the fleet runs services nobody asked for. FTP. Telnet. The firewall? Not running. Not enabled. Fix this."*
