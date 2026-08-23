@@ -1,6 +1,6 @@
 # Mission 1.3: Clean Sweep — Hints & Troubleshooting Guide
 
-**Rank**: Cadet (Maximum Scaffolding)
+**Rank**: Sub-Lieutenant (Maximum Scaffolding)
 
 This guide is your safety net. Read the relevant section carefully before asking for help.
 
