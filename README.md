@@ -14,7 +14,7 @@ You are a cadet at the Starfall Defence Corps Academy. The fleet's SSH was harde
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (with Docker Compose v2)
 - [GNU Make](https://www.gnu.org/software/make/)
-- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/) (`ansible-core`)
+- Ansible *(no host install needed — `make setup` installs `ansible-core` into the mission's own Python virtual environment)*
 - Python 3.10+ (for test environment)
   - On Debian/Ubuntu: `sudo apt install python3-venv`
 - Git
@@ -30,17 +30,20 @@ You are a cadet at the Starfall Defence Corps Academy. The fleet's SSH was harde
 git clone https://github.com/YOUR-USERNAME/mission-1-3-clean-sweep.git
 cd mission-1-3-clean-sweep
 
-# 2. Start the fleet
+# 2. Check your machine is mission-ready
+make doctor
+
+# 3. Start the fleet
 make setup
 
-# 3. Activate the virtual environment
+# 4. Activate the virtual environment
 source venv/bin/activate
 ```
 
-4. **Read your orders**: [Mission Briefing](docs/BRIEFING.md)
-5. **Complete the exercises**: [Exercises](docs/EXERCISES.md)
-6. **Stuck?** [Hints & Troubleshooting](docs/HINTS.md)
-7. **Track progress**: [Checklist](CHECKLIST.md)
+5. **Read your orders**: [Mission Briefing](docs/BRIEFING.md)
+6. **Complete the exercises**: [Exercises](docs/EXERCISES.md)
+7. **Stuck?** [Hints & Troubleshooting](docs/HINTS.md)
+8. **Track progress**: [Checklist](CHECKLIST.md)
 
 ## Lab Architecture
 
@@ -70,8 +73,10 @@ source venv/bin/activate
 
 ```
 make help       Show available commands
+make doctor     Check your machine is mission-ready (Docker, ports, tools)
 make setup      Start the fleet (3 target nodes)
 make test       Ask ARIA to verify your work
+make submit     Submit your work for ARIA review (branch, commit, push, PR)
 make reset      Destroy and rebuild all fleet nodes
 make destroy    Tear down everything (containers, keys, venv)
 make ssh-web    SSH into sdc-web (fleet web server)
