@@ -1,5 +1,7 @@
 # Mission 1.3: Clean Sweep — Hints & Troubleshooting Guide
 
+> 📚 Deeper reference: [FM-1 — Ansible Module Reference](https://github.com/starfall-defence-corps/sdc-academy/blob/main/field-manuals/FM-1-ansible-reference.md)
+
 **Rank**: Sub-Lieutenant (Maximum Scaffolding)
 
 This guide is your safety net. Read the relevant section carefully before asking for help.

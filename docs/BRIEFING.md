@@ -17,7 +17,7 @@ No single Voidborn agent is responsible for this disaster. This is the result of
 
 ### 1b. Friendly Forces
 
-The **Starfall Defence Corps (SDC)** fleet has been inventoried (Mission 1.1) and SSH has been hardened (Mission 1.2). But SSH is just one door. The fleet still runs services nobody asked for, has no active firewall, and lacks basic kernel hardening. The nodes are catalogued and SSH-locked, but otherwise defenceless.
+The **Starfall Defence Corps (SDC)** fleet has been inventoried ([Mission 1.1](https://github.com/starfall-defence-corps/mission-1-1-fleet-census)) and SSH has been hardened ([Mission 1.2](https://github.com/starfall-defence-corps/mission-1-2-lock-the-door)). But SSH is just one door. The fleet still runs services nobody asked for, has no active firewall, and lacks basic kernel hardening. The nodes are catalogued and SSH-locked, but otherwise defenceless.
 
 ### 1c. Attachments / Support
 
