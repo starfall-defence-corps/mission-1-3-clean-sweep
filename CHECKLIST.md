@@ -1,6 +1,6 @@
 # Mission 1.3: Clean Sweep — Progress Tracker
 
-**Rank**: Sub-Lieutenant
+**Rank**: Midshipman
 **Mission Progress**: 3 of 6 toward Sub-Lieutenant
 
 Check each item off as you complete it. If a phase is blocked, see `docs/HINTS.md`.
