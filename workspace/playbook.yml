@@ -9,8 +9,8 @@
 # Your mission: Clean up every node. Remove what shouldn't be
 # there, enable what should, and lock down the rest.
 #
-# Run your playbook:  ansible-playbook playbook.yml
-# Dry run first:      ansible-playbook playbook.yml --check --diff
+# Run your playbook:  ansible-playbook workspace/playbook.yml
+# Dry run first:      ansible-playbook workspace/playbook.yml --check --diff
 # Verify your work:   make test  (from project root)
 # =============================================================
 
