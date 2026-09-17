@@ -236,7 +236,7 @@ make reset
 **Quick diagnostic sequence:**
 1. `docker ps` — are containers running?
 2. `ansible all -m ping` — can Ansible reach them?
-3. `ansible-playbook playbook.yml --syntax-check` — valid YAML?
+3. `ansible-playbook workspace/playbook.yml --syntax-check` — valid YAML?
 4. Check indentation in `workspace/playbook.yml`
 
 ---
@@ -249,9 +249,9 @@ make reset
 | `ansible-doc copy` | File copy module documentation |
 | `ansible-doc file` | File permissions module documentation |
 | `ansible-doc community.general.ufw` | Firewall module documentation |
-| `ansible-playbook playbook.yml --syntax-check` | Validate YAML |
-| `ansible-playbook playbook.yml --check --diff` | Dry run with diff |
-| `ansible-playbook playbook.yml` | Execute the playbook |
+| `ansible-playbook workspace/playbook.yml --syntax-check` | Validate YAML |
+| `ansible-playbook workspace/playbook.yml --check --diff` | Dry run with diff |
+| `ansible-playbook workspace/playbook.yml` | Execute the playbook |
 | `ansible all -m ping` | Test connectivity |
 
 ---

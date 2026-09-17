@@ -37,7 +37,7 @@ if [ $EXIT_CODE -eq 0 ]; then
     echo -e "  ARIA: All objectives verified."
     echo -e "  Mission 1.3 status: COMPLETE"
     echo -e ""
-    echo -e "  Cadet, the fleet is secured."
+    echo -e "  Midshipman, the fleet is secured."
     echo -e "  Unnecessary services removed. Firewall active."
     echo -e "  Kernel hardened. Permissions corrected."
     echo -e "  The Starfall Defence Corps salutes your work."

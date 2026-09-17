@@ -8,18 +8,7 @@ DOCUMENT: EXERCISES — Phase-by-Phase Operational Instructions
 
 Complete each phase in sequence. Run `make test` after each phase. Do not advance until ARIA confirms compliance.
 
-**Two directories, two purposes:**
-
-- **Ansible commands** (`ansible`, `ansible-playbook`): Run from `workspace/` where `ansible.cfg` lives.
-- **Make commands** (`make test`, `make reset`): Run from the **project root** (where the `Makefile` lives).
-
-When a phase says "Run ARIA's Verification", return to the project root first:
-
-```bash
-cd ..        # from workspace/ back to project root
-make test
-cd workspace # return to workspace for the next phase
-```
+**One directory for everything**: run every command in this mission — `ansible ...` and `make ...` — from the **project root** (the folder with the `Makefile`). An `ansible.cfg` lives both there and in `workspace/`, so Ansible works from either; the steps below assume the project root throughout.
 
 ---
 
@@ -29,7 +18,7 @@ cd workspace # return to workspace for the next phase
 
 ### Step 0.1 — Start the Fleet
 
-From the **project root directory** (not `workspace/`), run:
+From the **project root directory**, run:
 
 ```bash
 make setup
@@ -71,13 +60,13 @@ This destroys all containers and rebuilds from scratch. Your work in `workspace/
 
 You will use ad-hoc commands to survey the current state of the fleet. This builds your situational awareness before writing a single line of playbook code.
 
-All Ansible commands in this phase are run from `workspace/`.
-
-### Step 1.1 — Change Into the Workspace Directory
+### Step 1.1 — Confirm You Are in the Project Root
 
 ```bash
-cd workspace
+ls Makefile
 ```
+
+If that lists the `Makefile`, you are in the right place — every command from here on runs from this directory.
 
 ### Step 1.2 — Verify Fleet Connectivity
 
@@ -135,9 +124,7 @@ You should see `644 root shadow` — the permissions are too loose. `/etc/shadow
 ### Step 1.7 — Run ARIA's Verification
 
 ```bash
-cd ..
 make test
-cd workspace
 ```
 
 Phase 1 checks that the playbook exists and has valid structure.
@@ -198,10 +185,8 @@ Find the third TODO block. Write a task to ensure ufw is present:
 ### Step 2.5 — Verify Syntax and Run ARIA
 
 ```bash
-ansible-playbook playbook.yml --syntax-check
-cd ..
+ansible-playbook workspace/playbook.yml --syntax-check
 make test
-cd workspace
 ```
 
 ---
@@ -252,10 +237,8 @@ Immediately after the SSH allow task, write a task that enables the firewall:
 ### Step 3.4 — Verify and Run ARIA
 
 ```bash
-ansible-playbook playbook.yml --syntax-check
-cd ..
+ansible-playbook workspace/playbook.yml --syntax-check
 make test
-cd workspace
 ```
 
 ---
@@ -273,7 +256,7 @@ You will copy a pre-written sysctl configuration file to all nodes using the `co
 Read the provided configuration file:
 
 ```bash
-cat files/sysctl-hardened.conf
+cat workspace/files/sysctl-hardened.conf
 ```
 
 This file disables IP forwarding, ignores ICMP redirects, enables SYN flood protection, and logs suspicious packets. You do not write this file — you deploy it.
@@ -348,10 +331,8 @@ Find the Task 6 TODO block. Write a task that:
 ### Step 4.7 — Verify and Run ARIA
 
 ```bash
-ansible-playbook playbook.yml --syntax-check
-cd ..
+ansible-playbook workspace/playbook.yml --syntax-check
 make test
-cd workspace
 ```
 
 ---
@@ -363,7 +344,7 @@ cd workspace
 ### Step 5.1 — Dry Run
 
 ```bash
-ansible-playbook playbook.yml --check --diff
+ansible-playbook workspace/playbook.yml --check --diff
 ```
 
 Review the predicted changes. You should see packages being removed, firewall rules being set, files being copied, and permissions being changed.
@@ -371,7 +352,7 @@ Review the predicted changes. You should see packages being removed, firewall ru
 ### Step 5.2 — Execute for Real
 
 ```bash
-ansible-playbook playbook.yml
+ansible-playbook workspace/playbook.yml
 ```
 
 Watch the output. On the first run you should see multiple `changed` tasks per host.
@@ -400,7 +381,7 @@ ansible all -m shell -a "stat -c '%a %U %G' /etc/shadow"
 Run the playbook a second time:
 
 ```bash
-ansible-playbook playbook.yml
+ansible-playbook workspace/playbook.yml
 ```
 
 You should see `changed=0` for every host. If any task still reports `changed`, investigate:
@@ -410,7 +391,6 @@ You should see `changed=0` for every host. If any task still reports `changed`, 
 ### Step 5.5 — Final ARIA Verification
 
 ```bash
-cd ..
 make test
 ```
 
